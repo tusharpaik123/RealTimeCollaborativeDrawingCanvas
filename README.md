@@ -54,7 +54,4 @@ Express.js
 
 Socket.IO
 
-**Deployment:**
-
-Render (Cloud Hosting)
 ---
