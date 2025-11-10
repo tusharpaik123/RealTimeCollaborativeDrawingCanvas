@@ -19,7 +19,7 @@ class WebSocketManager {
     this.maxReconnectAttempts = 5;
   }
 
-  connect(serverUrl = 'http://localhost:8000') {
+  connect(serverUrl = 'https://realtimecollaborativedrawingcanvas.onrender.com') {
     // Create Socket.IO client; enable reconnection with backoff
     this.socket = io(serverUrl, {
       transports: ['websocket', 'polling'],

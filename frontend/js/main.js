@@ -1,6 +1,6 @@
 // Entry point that wires Canvas, UI, and WebSocket together.
 // SERVER_URL should point to your Socket.IO backend.
-const SERVER_URL = 'http://localhost:8000';
+const SERVER_URL = 'https://realtimecollaborativedrawingcanvas.onrender.com';
 
 class CollaborativeCanvas {
   constructor() {
