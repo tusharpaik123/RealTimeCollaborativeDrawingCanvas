@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collaborative Canvas - Draw Together in Real-Time</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="logo">🎨</div>
+        <h1 class="title">Collaborative Canvas</h1>
+      </div>
+      <div class="room-info"> 
+        <span class="room-label">Room:</span>
+        <span class="room-name" id="roomName">default</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <div class="toolbar">
+      <div class="tool-section">
+        <h3 class="section-title">Tools</h3>
+        <div class="tool-buttons">
+          <button class="tool-btn active" data-tool="brush" title="Brush (B)">
+            <span>Brush</span>
+          </button>
+          <button class="tool-btn" data-tool="eraser" title="Eraser (E)">
+            <span>Eraser</span>
+          </button>
+          <button class="tool-btn" data-tool="line" title="Line (L)">
+            <span>Line</span>
+          </button>
+
+          <button class="tool-btn" data-tool="rect" title="Rectangle (R)">
+            <span>Rect</span>
+          </button>
+
+          <button class="tool-btn" data-tool="circle" title="Circle (C)">
+            <span>Circle</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h3 class="section-title">Color</h3>
+        <div class="color-picker-container">
+          <input type="color" id="colorPicker" value="#3b82f6" class="color-input">
+          <div class="preset-colors">
+            <button class="color-btn" data-color="#3b82f6" style="background: #3b82f6"></button>
+            <button class="color-btn" data-color="#ef4444" style="background: #ef4444"></button>
+            <button class="color-btn" data-color="#10b981" style="background: #10b981"></button>
+            <button class="color-btn" data-color="#f59e0b" style="background: #f59e0b"></button>
+            <button class="color-btn" data-color="#8b5cf6" style="background: #8b5cf6"></button>
+            <button class="color-btn" data-color="#ec4899" style="background: #ec4899"></button>
+            <button class="color-btn" data-color="#000000" style="background: #000000"></button>
+            <button class="color-btn" data-color="#ffffff" style="background: #ffffff; border: 1px solid #ddd"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h3 class="section-title">Width: <span id="widthValue">5</span>px</h3>
+        <input type="range" id="widthSlider" min="1" max="50" value="5" class="slider">
+      </div>
+
+      <div class="tool-section">
+        <h3 class="section-title">Actions</h3>
+        <div class="action-buttons">
+          <button class="action-btn" id="undoBtn" title="Undo (Ctrl+Z)">
+            Undo
+          </button>
+          <button class="action-btn" id="redoBtn" title="Redo (Ctrl+Y)">
+            Redo
+          </button>
+          <button class="action-btn danger" id="clearBtn" title="Clear Canvas">
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <h3 class="section-title">Online Users (<span id="userCount">0</span>)</h3>
+        <div class="users-list" id="usersList">
+          <div class="no-users">No other users online</div>
+        </div>
+      </div>
+
+      <div class="tool-section connection-status">
+        <div class="status-indicator">
+          <span class="status-dot" id="statusDot"></span>
+          <span class="status-text" id="statusText">Connecting...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas Container -->
+    <div class="canvas-container">
+      <canvas id="canvas"></canvas>
+      <div class="canvas-overlay" id="canvasOverlay"></div>
+
+      <div class="modal" id="welcomeModal">
+        <div class="modal-content">
+          <h2>Welcome to Collaborative Canvas!</h2>
+          <p>Enter your name and optionally specify a room to join:</p>
+          <div class="form-group">
+            <label for="usernameInput">Your Name:</label>
+            <input type="text" id="usernameInput" placeholder="Enter your name..." maxlength="20" autofocus>
+          </div>
+          <div class="form-group">
+            <label for="roomInput">Room Name (optional):</label>
+            <input type="text" id="roomInput" placeholder="default" maxlength="30">
+          </div>
+          <button class="primary-btn" id="joinBtn">Join Canvas</button>
+          <p class="hint">💡 Tip: Share the room name with friends to draw together!</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/canvas.js"></script>
+  <script src="js/websocket.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
